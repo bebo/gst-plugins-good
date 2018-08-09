@@ -4,15 +4,18 @@ jpeg_sources = [
   'gstjpegdec.c',
 ]
 
-jpeglib = cc.find_library('jpeg', required : get_option('jpeg'))
+jpeglib_dep = dependency('jpeg',
+  required : get_option('jpeg'),
+  fallback : ['libjpeg-turbo', 'jpeg_dep'],
+)
 
-if jpeglib.found()
+if jpeglib_dep.found()
   gstjpeg = library('gstjpeg',
     jpeg_sources,
     c_args : gst_plugins_good_args,
     link_args : noseh_link_args,
     include_directories : [configinc, libsinc],
-    dependencies : [gst_dep, gstbase_dep, gstvideo_dep, jpeglib, libm],
+    dependencies : [gst_dep, gstbase_dep, gstvideo_dep, jpeglib_dep, libm],
     install : true,
     install_dir : plugins_install_dir,
   )
