@@ -6,7 +6,7 @@ jpeg_sources = [
 
 jpeglib_dep = dependency('jpeg',
   required : get_option('jpeg'),
-  fallback : ['libjpeg-turbo', 'jpeg_dep'],
+  fallback : ['libjpeg', 'jpeg_dep'],
 )
 
 if jpeglib_dep.found()
